@@ -1,0 +1,22 @@
+﻿@model TesteWay2Joel.Models.PaginacaoFavoritoModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Favoritos</h2>
+
+<div>
+    @{
+        var grid = new WebGrid(null, rowsPerPage: Model.paginaTamanho);
+        grid.Bind(Model.favoritos, rowCount: Model.totalRegistros, autoSortAndPage: false);
+    }
+    @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>",
+        columns: grid.Columns(
+            grid.Column("name", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.favoritos[0].name).ToString()).ToString(),
+                format: (item) => Html.ActionLink((string)item.name, "Detalhes", "Repositorio", new { full_name = item.full_name }, null)),
+            grid.Column("description", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.favoritos[0].description).ToString()).ToString()),
+            grid.Column("updated_at", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.favoritos[0].updated_at).ToString()).ToString())
+         )
+     )
+</div>

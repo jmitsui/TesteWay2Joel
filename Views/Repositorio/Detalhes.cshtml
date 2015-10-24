@@ -1,0 +1,112 @@
+﻿@model TesteWay2Joel.Models.RepositorioModels
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+@section JavaScript
+{
+    <script type="text/javascript">
+    function doFavorito() {
+        var modelDataJSON = '@Html.Raw(Json.Encode(Model))';
+        var urlAjax;
+        if (isFavorite){
+            urlAjax = '/Favorito/Remover';
+        }
+        else{
+            urlAjax = '/Favorito/Inserir';
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: urlAjax,
+            data: { jsonRepositorioModels: modelDataJSON },
+            dataType: 'html',
+            cache: false,
+            async: true,
+            success: function (result) {
+                if (result == "marcado") {
+                    isFavorite = true;
+                    $('#Favoritar').val('Desmarcar como favorito');
+                }
+
+                if (result == "desmarcado") {
+                    isFavorite = false;
+                    $('#Favoritar').val('Marcar como favorito');
+
+                }
+
+                if (result == "erroNotFound") {
+                    alert("Erro na função Favoritos");
+                }
+            }
+        })
+    }
+
+    var isFavorite = @Html.Raw(Model.is_favorite).ToString().ToLower();
+</script>
+
+}
+
+<h2>Detalhes</h2>
+
+@if (Model.is_favorite) { 
+<input id="Favoritar" type="button" value="Desmarcar como favorito" onclick="doFavorito();" />
+}
+else
+{
+<input id="Favoritar" name="Favoritar" type="button" value="Marcar como favorito" onclick="doFavorito();" />
+}
+
+<fieldset>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.updated_at)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.updated_at)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.language)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.language)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.owner.login)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.owner.login)
+    </div>
+
+    <div>
+        @{
+            var grid = new WebGrid(source: Model.contributors);
+        }
+        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>", columns: grid.Columns(
+            grid.Column("login", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].login).ToString()).ToString()),
+            grid.Column("avatar_url", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].avatar_url).ToString()).ToString()),
+            grid.Column("contributions", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].contributions).ToString()).ToString())
+        )
+    )
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Voltar", null, null, null, new { href = Request.UrlReferrer })
+</p>
