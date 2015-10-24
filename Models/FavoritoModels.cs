@@ -8,6 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe de modelo que representa um respositório favorito
+    /// </summary>
     public class FavoritoModels
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -21,6 +24,9 @@ namespace TesteWay2Joel.Models
         public DateTime updated_at { get; set; }
     }
 
+    /// <summary>
+    /// Classe responsável por inicializar a conexão com o banco de dados
+    /// </summary>
     public class FavoritoDBContext : DbContext
     {
         public FavoritoDBContext() {

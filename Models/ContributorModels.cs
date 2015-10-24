@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe de modelo que representa um contribuidor
+    /// </summary>
     public class ContributorModels
     {
+        [DisplayName("Login")]
         public string login { get; set; }
         public int id { get; set; }
         public string avatar_url { get; set; }
@@ -24,6 +29,7 @@ namespace TesteWay2Joel.Models
         public string received_events_url { get; set; }
         public string type { get; set; }
         public bool site_admin { get; set; }
+        [DisplayName("Contribuições")]
         public int contributions { get; set; }
     }
 }

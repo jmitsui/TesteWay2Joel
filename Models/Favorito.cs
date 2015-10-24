@@ -6,11 +6,18 @@ using Newtonsoft.Json;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe que provê funções relacionadas ao modelo Favorito, como listar, inserir, remover
+    /// </summary>
     public class Favorito
     {
         private FavoritoDBContext db = new FavoritoDBContext();
 
-        public List<FavoritoModels> ListaFavoritos(out int totalRegistros, int paginaTamanho, int paginaIndex)
+        /// <summary> 
+        /// Método que retorna uma lista de favoritos. 
+        /// </summary> 
+        /// <param name="totalRegistros">Total de registros.</param> 
+        public List<FavoritoModels> ListaFavoritos(out int totalRegistros)
         {
             try
             {
@@ -26,6 +33,10 @@ namespace TesteWay2Joel.Models
 
         }
 
+        /// <summary> 
+        /// Método que retorna um favorito. 
+        /// </summary> 
+        /// <param name="id">Id do favorito, que é o mesmo Id do repositório.</param> 
         public FavoritoModels RetornaFavorito(int id)
         {
             try
@@ -39,6 +50,10 @@ namespace TesteWay2Joel.Models
             }
         }
 
+        /// <summary> 
+        /// Método que insere um novo favorito. 
+        /// </summary> 
+        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
         public string Inserir(string jsonRepositorioModels)
         {
             try
@@ -54,6 +69,10 @@ namespace TesteWay2Joel.Models
             }
         }
 
+        /// <summary> 
+        /// Método que remove um favorito. 
+        /// </summary> 
+        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
         public string Remover(string jsonRepositorioModels)
         {
             try

@@ -1,9 +1,5 @@
 ﻿@model TesteWay2Joel.Models.RepositorioModels
 
-@{
-    ViewBag.Title = "Detalhes";
-}
-
 @section JavaScript
 {
     <script type="text/javascript">
@@ -48,7 +44,9 @@
 
 }
 
-<h2>Detalhes</h2>
+<hgroup class="title">
+    <h1>Detalhes</h1>
+</hgroup>
 
 @if (Model.is_favorite) { 
 <input id="Favoritar" type="button" value="Desmarcar como favorito" onclick="doFavorito();" />
@@ -58,53 +56,45 @@ else
 <input id="Favoritar" name="Favoritar" type="button" value="Marcar como favorito" onclick="doFavorito();" />
 }
 
+<table>
+    <tr>
+        <td style="font-weight: bold">@Html.DisplayNameFor(model => model.name): </td>
+        <td>@Html.DisplayFor(model => model.name)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">@Html.DisplayNameFor(model => model.description):</td>
+        <td>@Html.DisplayFor(model => model.description)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">@Html.DisplayNameFor(model => model.updated_at):</td>
+        <td>@Html.DisplayFor(model => model.updated_at)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">@Html.DisplayNameFor(model => model.language):</td>
+        <td>@Html.DisplayFor(model => model.language)</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">@Html.DisplayNameFor(model => model.owner.login):</td>
+        <td>@Html.DisplayFor(model => model.owner.login)</td>
+    </tr>
+</table>
+<h2>Contribuidores</h2>
 <fieldset>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.description)
-    </div>
-
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.updated_at)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.updated_at)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.language)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.language)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.owner.login)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.owner.login)
-    </div>
-
     <div>
         @{
             var grid = new WebGrid(source: Model.contributors);
         }
-        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>", columns: grid.Columns(
-            grid.Column("login", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].login).ToString()).ToString()),
-            grid.Column("avatar_url", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].avatar_url).ToString()).ToString()),
-            grid.Column("contributions", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].contributions).ToString()).ToString())
+        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>",
+            tableStyle: "webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            columns: grid.Columns(
+                grid.Column("login", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].login).ToString()).ToString(), canSort: false),
+                grid.Column("contributions", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.contributors[0].contributions).ToString()).ToString(), canSort: false)
+            )
         )
-    )
     </div>
 </fieldset>
 <p>

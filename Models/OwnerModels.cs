@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe de modelo que representa um dono de repositório
+    /// </summary>
     public class OwnerModels
     {
+        [DisplayName("Login")]
         public string login { get; set; }
         public int id { get; set; }
         public string avatar_url { get; set; }

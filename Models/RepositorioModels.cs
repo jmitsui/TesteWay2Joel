@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe de modelo que representa um repositório
+    /// </summary>
     public class RepositorioModels
     {
         public int id { get; set; }
@@ -59,7 +62,7 @@ namespace TesteWay2Joel.Models
         public string created_at { get; set; }
         [DisplayName("Última atualização")]
         [DataType(DataType.DateTime)]
-        public string updated_at { get; set; }
+        public DateTime updated_at { get; set; }
         public string pushed_at { get; set; }
         public string git_url { get; set; }
         public string ssh_url { get; set; }
@@ -69,6 +72,7 @@ namespace TesteWay2Joel.Models
         public int size { get; set; }
         public int stargazers_count { get; set; }
         public int watchers_count { get; set; }
+        [DisplayName("Linguagem")]
         public string language { get; set; }
         public bool has_issues { get; set; }
         public bool has_downloads { get; set; }

@@ -5,6 +5,9 @@ using System.Web;
 
 namespace TesteWay2Joel.Models
 {
+    /// <summary>
+    /// Classe de modelo que representa uma pesquisa de repositórios
+    /// </summary>
     public class PesquisaRepositorioModels
     {
         public int total_count { get; set; }

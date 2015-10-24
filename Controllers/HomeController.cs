@@ -10,21 +10,14 @@ namespace TesteWay2Joel.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Teste do processo de seleção Way2 Tecnologia";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Meus contatos";
 
             return View();
         }

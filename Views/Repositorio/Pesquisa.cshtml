@@ -1,21 +1,25 @@
 ﻿@model TesteWay2Joel.Models.PaginacaoRepositorioModels
 
-@{
-    ViewBag.Title = "Pesquisa";
-}
-
-<h2>Pesquisa</h2>
+<hgroup class="title">
+    <h1>Pesquisa</h1>
+</hgroup>
 
 <div>
     @{
         var grid = new WebGrid(null, rowsPerPage: Model.paginaTamanho);
         grid.Bind(Model.repositorios, rowCount: Model.totalRegistros, autoSortAndPage: false);
     }
-        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>", columns: grid.Columns(
-            grid.Column("name", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].name).ToString()).ToString(),
-                format: (item) => Html.ActionLink((string)item.name, "Detalhes", new { full_name = item.full_name })),
-            grid.Column("description", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].description).ToString()).ToString()),
-            grid.Column("updated_at", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].updated_at).ToString()).ToString())
+        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<<", lastText: ">>",
+            tableStyle: "webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            columns: grid.Columns(
+                grid.Column("name", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].name).ToString()).ToString(),
+                    format: (item) => Html.ActionLink((string)item.name, "Detalhes", new { full_name = item.full_name }), canSort: false),
+                grid.Column("description", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].description).ToString()).ToString(), canSort: false),
+                grid.Column("updated_at", header: HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.repositorios[0].updated_at).ToString()).ToString(), canSort: false)
         )
     )
 </div>

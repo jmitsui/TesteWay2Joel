@@ -9,24 +9,29 @@ using TesteWay2Joel.Models;
 
 namespace TesteWay2Joel.Controllers
 {
+    /// <summary>
+    /// Classe de controle que faz a interação da visão com os modelos
+    /// </summary>
     public class FavoritoController : Controller
     {
         private Favorito favorito = new Favorito();
 
         //
         // GET: /Favorito/
-        public ActionResult Index(int page = 1)
+        /// <summary> 
+        /// Método que mostra a lista de favoritos
+        /// </summary> 
+        public ActionResult Index()
         {
             const int paginaTamanho = 30;
 
             int totalRegistros;
 
-            List<FavoritoModels> favoritos = favorito.ListaFavoritos(out totalRegistros, paginaTamanho: paginaTamanho, paginaIndex: page);
+            List<FavoritoModels> favoritos = favorito.ListaFavoritos(out totalRegistros);
 
             PaginacaoFavoritoModels model = new PaginacaoFavoritoModels
             {
                 paginaTamanho = paginaTamanho,
-                paginaIndex = page,
                 favoritos = favoritos,
                 totalRegistros = totalRegistros
             };
@@ -35,11 +40,19 @@ namespace TesteWay2Joel.Controllers
         }
 
         [HttpPost]
+        /// <summary> 
+        /// Método que insere um novo favorito
+        /// </summary> 
+        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
         public string Inserir(string jsonRepositorioModels)
         {
             return favorito.Inserir(jsonRepositorioModels);
         }
 
+        /// <summary> 
+        /// Método que remove um favorito
+        /// </summary> 
+        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
         [HttpPost]
         public string Remover(string jsonRepositorioModels)
         {
