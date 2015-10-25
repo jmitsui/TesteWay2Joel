@@ -1,17 +1,17 @@
 ﻿@model TesteWay2Joel.Models.RepositorioModels
 
+@{
+    ViewBag.Title = "Detalhes";
+}
+
 @section JavaScript
 {
     <script type="text/javascript">
     function doFavorito() {
         var modelDataJSON = '@Html.Raw(Json.Encode(Model))';
-        var urlAjax;
-        if (isFavorite){
-            urlAjax = '/Favorito/Remover';
-        }
-        else{
-            urlAjax = '/Favorito/Inserir';
-        }
+        var urlAjax = '/Favorito/Atualizar';
+        $('#Favoritar').val('Processando...');
+        $('#Favoritar').disabled = true;
 
         $.ajax({
             type: 'POST',
@@ -19,27 +19,20 @@
             data: { jsonRepositorioModels: modelDataJSON },
             dataType: 'html',
             cache: false,
-            async: true,
+            async: false,
             success: function (result) {
                 if (result == "marcado") {
-                    isFavorite = true;
                     $('#Favoritar').val('Desmarcar como favorito');
                 }
 
                 if (result == "desmarcado") {
-                    isFavorite = false;
                     $('#Favoritar').val('Marcar como favorito');
-
                 }
-
-                if (result == "erroNotFound") {
-                    alert("Erro na função Favoritos");
-                }
+                $('#Favoritar').disabled = false;
             }
         })
     }
 
-    var isFavorite = @Html.Raw(Model.is_favorite).ToString().ToLower();
 </script>
 
 }

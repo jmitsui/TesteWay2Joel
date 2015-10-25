@@ -41,22 +41,12 @@ namespace TesteWay2Joel.Controllers
 
         [HttpPost]
         /// <summary> 
-        /// Método que insere um novo favorito
+        /// Método que atualiza um favorito, inserindo ou removendo um favorito
         /// </summary> 
         /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
-        public string Inserir(string jsonRepositorioModels)
+        public string Atualizar(string jsonRepositorioModels)
         {
-            return favorito.Inserir(jsonRepositorioModels);
-        }
-
-        /// <summary> 
-        /// Método que remove um favorito
-        /// </summary> 
-        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
-        [HttpPost]
-        public string Remover(string jsonRepositorioModels)
-        {
-            return favorito.Remover(jsonRepositorioModels);
+            return favorito.Atualizar(jsonRepositorioModels);
         }
     }
 }

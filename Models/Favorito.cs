@@ -51,48 +51,54 @@ namespace TesteWay2Joel.Models
         }
 
         /// <summary> 
-        /// Método que insere um novo favorito. 
+        /// Método que verificar se um favorito já está marcado 
         /// </summary> 
-        /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
-        public string Inserir(string jsonRepositorioModels)
+        /// <param name="id">Id do favorito, que é o mesmo Id do repositório.</param> 
+        public bool ExisteFavorito(int id)
         {
             try
             {
-                FavoritoModels favoritomodels = JsonConvert.DeserializeObject<FavoritoModels>(jsonRepositorioModels);
-                db.Favoritos.Add(favoritomodels);
-                db.SaveChanges();
-                return "marcado";
+                FavoritoModels favoritomodels = db.Favoritos.Find(id);
+                return (favoritomodels != null);
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Erro na inclusão de favoritos: ", ex);
+                throw new ApplicationException("Erro no verificação do favorito: ", ex);
             }
         }
 
         /// <summary> 
-        /// Método que remove um favorito. 
+        /// Método que atualiza um favorito, inserindo se não existe ou removendo um existente
         /// </summary> 
         /// <param name="jsonRepositorioModels">Conteúdo em formato JSON do repositório.</param> 
-        public string Remover(string jsonRepositorioModels)
+        public string Atualizar(string jsonRepositorioModels)
         {
             try
             {
+                string retorno = "";
                 FavoritoModels favoritomodels = JsonConvert.DeserializeObject<FavoritoModels>(jsonRepositorioModels);
-                favoritomodels = db.Favoritos.Find(favoritomodels.id);
 
-                if (favoritomodels == null)
+                if (db.Favoritos.Find(favoritomodels.id) == null)
                 {
-                    return "erroNotFound";
+                    db.Favoritos.Add(favoritomodels);
+                    retorno = "marcado";
                 }
-
-                db.Favoritos.Remove(favoritomodels);
+                else
+                {
+                    favoritomodels = db.Favoritos.Find(favoritomodels.id);
+                    db.Favoritos.Remove(favoritomodels);
+                    retorno = "desmarcado";
+                }
                 db.SaveChanges();
 
-                return "desmarcado";
+                System.Threading.Thread.Sleep(3000);
+                
+
+                return retorno;
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Erro na exclusão de favoritos: ", ex);
+                throw new ApplicationException("Erro na inclusão de favoritos: ", ex);
             }
         }
     }
