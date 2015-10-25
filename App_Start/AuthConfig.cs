@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using TesteWay2Joel.Models;
-
-namespace TesteWay2Joel
+﻿namespace TesteWay2Joel
 {
     public static class AuthConfig
     {
