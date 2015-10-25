@@ -91,9 +91,6 @@ namespace TesteWay2Joel.Models
                 }
                 db.SaveChanges();
 
-                System.Threading.Thread.Sleep(3000);
-                
-
                 return retorno;
             }
             catch (Exception ex)
